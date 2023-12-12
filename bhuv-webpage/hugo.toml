@@ -1,0 +1,28 @@
+baseURL = 'https://bhuv.live'
+languageCode = 'en-us'
+title = "bhuv's notebook"
+theme = "paper"
+
+[params]
+
+
+monoDarkIcon = true                       # show monochrome dark mode icon
+
+twitter = "_bhuvanesh_"
+linkedin = "bhuvanesh-sridharan-40887b19b/"
+github = "bhuvanesh09"
+
+name = "Bhuvanesh Sridharan"
+bio = "ML Engineer at Sprinklr"
+
+mainSections = ["home", "blog", "projects", "about"]
+
+
+
+[menu]
+    main = [
+        {name = "About", url = "/about"},
+        {name = "Publications", url = "/publications"},
+    ]
+
+
