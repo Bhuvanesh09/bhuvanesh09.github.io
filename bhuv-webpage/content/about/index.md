@@ -1,8 +1,9 @@
 +++
-title = "Hello WOrls"
 description = "Hugo, the world's fastest framework for building websites"
 date = "2019-02-28"
-layout = "single"
+title = "About in yaml"
+type = "about"
+layout = "aboutlayout"
 aliases = ["about-us", "contact"]
 author = "lee.so"
 +++

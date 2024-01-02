@@ -15,7 +15,7 @@ github = "bhuvanesh09"
 name = "Bhuvanesh Sridharan"
 bio = "ML Engineer at Sprinklr"
 
-mainSections = ["home", "blog", "projects", "about"]
+mainSections = ["home","publications", "blog", "projects",] 
 
 
 
