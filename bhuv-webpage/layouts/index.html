@@ -1,0 +1,50 @@
+{{ define "main" }}
+{{ warnf "AS HOME PAGE SPECIAL %s" .Title}}
+<!-- Tag Title -->
+{{ if and .Title (eq .Type "tags") }}
+<h1 class="mb-16">#{{ .Title }}</h1>
+{{ end }}
+
+<!-- $pages -->
+{{ $pages := union .RegularPages .Sections }}<!---->
+{{ if .IsHome }}<!---->
+{{ $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}<!---->
+{{ end }}
+
+<article>
+  <section>{{ .Content }}</section>
+</article>
+
+<h1 class="mt-16 text-[2.6rem] font-medium font-serif tracking-wider uppercase underline">Recent Posts:</h2>
+<!-- Posts -->
+{{ $paginator := .Paginate $pages }} {{ range $index, $page := $paginator.Pages}}<!---->
+<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
+  {{ if gt .Weight 0 }}
+  <span
+    class="mb-2 ml-px inline-block text-[0.8rem] font-medium uppercase tracking-wider text-[#ff3b2d] opacity-70"
+    >Featured</span
+  >
+  {{ end }}
+  <h2 class="!my-0 pb-1 font-bold !leading-none">{{ .Title }}</h2>
+  <time class="text-sm antialiased opacity-60"
+    >{{ .Date | time.Format ":date_medium" }}</time
+  >
+  <a class="absolute inset-0 text-[0]" href="{{ .Permalink }}">{{ .Title }}</a>
+</section>
+{{ end }}
+
+<!-- Main Nav -->
+{{ if gt $paginator.TotalPages 1 }}
+<nav class="mt-16 flex">
+  {{ if $paginator.HasPrev }}
+  <a class="btn" href="{{ $paginator.Prev.URL }}">← {{ i18n "prev_page" }}</a>
+  {{ end }}<!---->
+  {{ if $paginator.HasNext }}
+  <a class="btn ml-auto" href="{{ $paginator.Next.URL }}"
+    >{{ i18n "next_page" }} →</a
+  >
+  {{ end }}
+</nav>
+{{ end }}<!---->
+
+{{ end }}
