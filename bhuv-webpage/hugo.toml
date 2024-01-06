@@ -15,13 +15,14 @@ github = "bhuvanesh09"
 name = "Bhuvanesh Sridharan"
 bio = "ML Engineer at Sprinklr"
 
-mainSections = ["home","publications", "blog", "projects",] 
+mainSections = ["home", "blog", "projects",] 
 
 
 
 [menu]
     main = [
         {name = "About", url = "/about"},
+        {name = "ThoughtDrops", url = "/posts"},
         {name = "Publications", url = "/publications"},
     ]
 

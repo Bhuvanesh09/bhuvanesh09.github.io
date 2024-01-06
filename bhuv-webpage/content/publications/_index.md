@@ -1,5 +1,4 @@
 +++
-aliases = ["posts", "articles", "blog", "showcase", "docs"]
 title = "Publications"
 author = "lee.so"
 tags = ["index"]
