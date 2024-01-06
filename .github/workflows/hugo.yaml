@@ -1,5 +1,6 @@
 # Sample workflow for building and deploying a Hugo site to GitHub Pages
 name: Deploy Hugo site to Pages
+source_directory: &source_directory ./bhuv-webpage
 
 on:
   # Runs on pushes targeting the default branch
@@ -60,11 +61,11 @@ jobs:
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"  \
-            --source ./bhuv-webpage
+            --source *source_directory
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./public
+          path: *source_directory/public
 
   # Deployment job
   deploy:
