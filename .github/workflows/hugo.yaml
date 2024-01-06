@@ -65,7 +65,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: *source_directory/public
+          path: "*source_directory/public"
 
   # Deployment job
   deploy:
