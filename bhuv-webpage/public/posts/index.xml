@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ThoughtDrops on bhuv&#39;s notebook</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in ThoughtDrops on bhuv&#39;s notebook</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Aug 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to cache your functions the right way?</title>
+      <link>http://localhost:1313/posts/cache_functions/</link>
+      <pubDate>Sun, 04 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/cache_functions/</guid>
+      <description>&amp;ldquo;Benchmarking&amp;rdquo;—a word that either kicks off an experiment or follows a bold new proposal. But when you&amp;rsquo;re dealing with massive datasets, the benchmarking and evaluation functions can take their sweet time. What&amp;rsquo;s a reasonable person to do? Simple: hit run, grab a coffee, lunch, or, if you&amp;rsquo;re really daring, take a nap. Yet, the horror of returning to find your entire experiment crashed because one row was invalid, an API hit its rate limit, or some sneaky corner case reared its ugly head is all too real.</description>
+    </item>
+  </channel>
+</rss>

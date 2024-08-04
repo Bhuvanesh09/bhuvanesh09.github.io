@@ -2,11 +2,17 @@
 {{ warnf "As list: %s " .Title}}
 <!-- Tag Title -->
 {{ if and .Title (eq .Type "tags") }}
-<h1 class="mb-16">#{{ .Title }}</h1>
+  <h1 class="mb-12">#{{.Title }}</h1>
+{{ else }}
+  <h1 class="mb-16">{{ .Title }}</h1>
 {{ end }}
 
+<section>{{ .Content }}</section>
 <!-- $pages -->
 {{ $pages := union .RegularPages .Sections }}<!---->
+{{range $pages}}
+{{ warnf "The titles of pages : %s" .Title }}
+{{end}}
 {{ if .IsHome }}<!---->
 {{ $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}<!---->
 {{ end }}

@@ -2,11 +2,12 @@ baseURL = 'https://bhuv.live'
 languageCode = 'en-us'
 title = "bhuv's notebook"
 theme = "paper"
+name = "Bhuvanesh"
 
 [params]
 
 
-monoDarkIcon = true                       # show monochrome dark mode icon
+monoDarkIcon = true # show monochrome dark mode icon
 
 twitter = "_bhuvanesh_"
 linkedin = "bhuvanesh-sridharan-40887b19b/"
@@ -15,15 +16,12 @@ github = "bhuvanesh09"
 name = "Bhuvanesh Sridharan"
 bio = "ML Engineer at Sprinklr"
 
-mainSections = ["home", "blog", "projects",] 
-
+mainSections = ["home", "posts"]
 
 
 [menu]
-    main = [
-        {name = "About", url = "/about"},
-        {name = "ThoughtDrops", url = "/posts"},
-        {name = "Publications", url = "/publications"},
-    ]
-
-
+main = [
+    { name = "About", url = "/about" },
+    { name = "ThoughtDrops", url = "/posts" },
+    { name = "Publications", url = "/publications" },
+]

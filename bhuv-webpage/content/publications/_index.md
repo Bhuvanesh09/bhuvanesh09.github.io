@@ -1,6 +1,6 @@
 +++
 title = "Publications"
-author = "lee.so"
+author = "Bhuvanesh"
 tags = ["index"]
 +++
 

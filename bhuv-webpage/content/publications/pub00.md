@@ -1,4 +1,3 @@
-
 +++
 title = "Modern machine learning for tackling inverse problems in chemistry: molecular design to realization"
 author = "B Sridharan, M Goel, UD Priyakumar"
@@ -6,7 +5,7 @@ description = "The discovery of new molecules and materials helps expand the hor
 date = "2022-02-28"
 journal = "Chemical Communications 58 (35), 5316-5331, 2022"
 tags = [
-    "publication",
+    "publication", 
 ]
 +++
 

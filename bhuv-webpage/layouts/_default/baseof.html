@@ -46,12 +46,12 @@
       class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
     >
       {{ warnf "ItPage: %s %t" .Title .IsHome}}
-      {{ if $.IsHome }}
-      {{ warnf "Page recognized as home: %s %t" .Title .IsHome}}
-      {{ $about_page := .Site.GetPage "/about/index.md"}}
-      {{ warnf "Inside get page %s %s" $about_page.Title $about_page.Type}}
-        {{ block "singleabout" $about_page}}{{ end }}
-      {{end}}
+      <!-- {{ if $.IsHome }} -->
+      <!-- {{ warnf "Page recognized as home: %s %t" .Title .IsHome}} -->
+      <!-- {{ $about_page := .Site.GetPage "/about/index.md"}} -->
+      <!-- {{ warnf "Inside get page %s %s" $about_page.Title $about_page.Type}} -->
+      <!--   {{ block "singleabout" $about_page}}{{ end }} -->
+      <!-- {{end}} -->
       {{ $about_page := .Site.GetPage "/about/index.md"}}
       {{ block "main" . }}{{ end }}
     </main>

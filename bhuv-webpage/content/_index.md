@@ -5,8 +5,10 @@ title = "About in yaml"
 author = "lee.so"
 +++
 
-# 👋🏽  Hi ! I am Bhuvanesh.
+# 👋🏽 Hi, I'm Bhuvanesh.
 
-As an ML Engineer at Sprinklr, I'm exploring the exciting frontier of Large Language Models (LLMs). My current mission is to optimize these powerful tools and unlock their potential for large-scale deployment, unlocking new possibilities across diverse domains. It's a journey of constant discovery, and I'm excited to see where it leads!
+I'm a Machine Learning Engineer at Sprinklr, specializing in optimizing Large Language Models (LLMs) for large-scale deployment across various domains. At Sprinklr, I've also worked on Agentic Workflows and created insights from vast amounts of data using LLMs, all while minimizing hallucinations.
 
-Prior to this, I graduated from IIIT Hyderabad where I worked on a variety of projects in the fields of Deep Reinforcement Learning, Graph Networks and Computer Vision. This experience allowed me to apply these innovative techniques to solve complex problems in the field of computational chemistry. You can find more details about my research work at [Publications](/publications).
+I graduated from IIIT Hyderabad, where I worked on projects involving Deep Reinforcement Learning, Graph Networks, and Computer Vision. My experience includes tackling complex problems in computational chemistry using advanced machine learning techniques. For more details about my research, visit [Publications](/publications).
+
+Outside of work, I enjoy go-karting and consider myself pretty good at it. If you're up for a challenge, let's race! Recently, I've also rekindled my love for reading and am always looking for book recommendations. Feel free to share your favorites with me.

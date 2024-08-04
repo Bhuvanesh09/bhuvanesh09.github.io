@@ -6,7 +6,7 @@ description = "Spectroscopy is the study of how matter interacts with electromag
 date = "2022-02-28"
 journal = "The Journal of Physical Chemistry Letters 13 (22), 4924-4933, 2022"
 tags = [
-    "publication",
+    "publication"
 ]
 +++
 
