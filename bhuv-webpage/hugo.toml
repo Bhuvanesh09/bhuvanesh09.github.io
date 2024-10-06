@@ -6,7 +6,6 @@ name = "Bhuvanesh"
 
 [params]
 
-
 monoDarkIcon = true # show monochrome dark mode icon
 
 twitter = "_bhuvanesh_"
@@ -25,3 +24,7 @@ main = [
     { name = "ThoughtDrops", url = "/posts" },
     { name = "Publications", url = "/publications" },
 ]
+
+
+[markup.goldmark.renderer]
+unsafe = true
