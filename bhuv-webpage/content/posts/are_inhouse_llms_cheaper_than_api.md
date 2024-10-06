@@ -124,7 +124,8 @@ For a bit of emperical validation that what we are doing is correct, lets try to
 The extended model now contains the num semaphore as well as part of the training data. For this regression, we have 3 variables which we raise to the degree of two. This implies that our linear regression is fitting $\binom{3}{2} + \binom{3}{1} + 1 = 10$ variables. The extended model achieved an **RMSE of 0.15 seconds** for predicting the latency given `<input>`, `<output>`, and `<semaphores>` demonstrating reliable performance in predicting latency within complex in-flight batching systems. The increase in RMSE compared to the simpler model is expected due to the additional complexity introduced by semaphore counts, and also because different frameworks have different ways in which the inflight scheduling is handled, ideally, all the sequences should go through the forward pass together but due to restricted number of SMs, etc they don't occur truly parallely.
 
 ## Conundrum of Latency vs Throughput: A tradeoff
-Now we have a model that can predict the latency of the system given the input tokens, output tokens and the number of semaphore. But we need to understand how the throughput of the system is affected by these parameters. Throughput in tokens per second can easily be calculated by the formula: $$ \text{Throughput} = \text{Mean output tokens per call} \times \frac{\text{Semaphores}}{\text{Latency}} $$.
+Now we have a model that can predict the latency of the system given the input tokens, output tokens and the number of semaphore. But we need to understand how the throughput of the system is affected by these parameters. Throughput in tokens per second can easily be calculated by the formula: 
+$$ \boxed{\text{Throughput} = \text{Mean output tokens per call} \times \frac{\text{Semaphores}}{\text{Latency}}} $$.
 
 #### Handling In-Flight Batching
 
@@ -144,7 +145,10 @@ Lets take an example of Llama 3.1 8B:
 - Each KV Cache is stored in 2bytes: $n_b = 2$ (FP16)
 
 The amount of memory in GPU VRAM taken by a single token stored in kv_cache would be:
-$$ 2 \times n_l \times \frac{d}{n_h} \times n_{kv} \times 2 = 32 * (4096/32) * 8 * 2 * 2 = 131072 \text{bytes} \approx 131 \text{KB}$$
+
+$$ \boxed{\text{Bytes for a single token in kv cache} = 2 \times n_l \times \frac{d}{n_h} \times n_{kv} \times n_b} $$
+
+$$ = 32 * (4096/32) * 8 * 2 * 2 = 131072 \text{bytes} \approx 131 \text{KB}$$
 
 So, considering an input length of 2048, a semaphore of 30 would need around $ 2048 \cdot 30\cdot131KB \approx 8GB$ of memory in VRAM. Which comes just under the budget since on A10G, we have $24GB - 16GB\text{(for the model weights)} = 8GB$ of memory left.
 
@@ -198,7 +202,7 @@ $$ \text{Input Cost} = 0.15 \times \frac{302,350,789}{1,000,000} = \\$45.3526183
 $$ \text{Output Cost} = 0.60 \times \frac{19,192,188}{1,000,000} = \\$11.5153128 $$
 $$ \text{Total Cost} = \\$45.35261835 + \\$11.5153128 = \\$56.86793115 $$
 
-Therefore, the in-house setup proved to be over **four times cheaper** under the tested configurations.
+Therefore, the in-house setup proved to be over **four times cheaper** $\left(\approx \frac{\\$56.8}{\\$13}\right)$ under the tested configurations.
 
 
 ## Conclusion
