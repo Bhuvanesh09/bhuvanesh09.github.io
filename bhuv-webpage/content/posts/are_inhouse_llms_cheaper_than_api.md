@@ -40,7 +40,9 @@ $$ \text{Latency} = k_1 \times \text{num\\_output\\_tokens} $$
 <!-- Here, \( k_1 \) is a constant that represents the latency incurred per output token. -->
 This linear relationship is intuitive because generating each additional token requires a consistent amount of computation, leading to a proportional increase in total latency.
 
-**Note**: We also observe that the slope by which the latency increases with the output tokens is also increseasing with increase in number of input tokens.
+{{< notice info >}}
+We also observe that the slope itself of the linearity between latency and output tokens  is also increasing with increase in number of input tokens. This leads us to the next dependancy.
+{{< /notice >}}
 
 #### 2. Linear Dependence on Input Tokens
 
@@ -191,7 +193,8 @@ A comparative analysis between an in-house setup using an A10G GPU with Llama3 a
 - **Semaphore:** 21
 - **Daily Cost:** $13.00 (Rent of an A10G machine reserved for 1 year) 
 
-With our earlier curve fitting, we are able to determine that we would be able to serve the above config with the latency of $12.29$ seconds.
+With our earlier curve fitting, we are able to determine that we would be able to serve the above config with the latency of $12.29$ seconds. Similarly, we can find the latency for any input, output and semaphore combination. We can further calculate the cost of serving the same number of tokens with GPT 4o mini.
+
 #### Cost for equivalent API: 
 
 $$ \text{Input Tokens Served} = 21 \times 2048 \times \left(\frac{24\cdot60\cdot60}{12.29}\right) = 302,350,789 $$
@@ -211,6 +214,8 @@ We are able to show wih very real and plausible scenarios that we can be much ch
 This analysis provides a comprehensive comparison of in-house LLM deployments versus API-based solutions, grounded in empirical data and robust modeling techniques. By leveraging detailed token and latency analyses, organizations can optimize their AI deployments for both performance and cost-efficiency.
 Thanks a lot for sticking around till the end!
 
+**Additional considerations:**
+- The above numbers are for serving Llama3.1 8B model with SmoothQuant while for memory considerations we used FP16 model weights just for the sake of simplicity. The actual memory usage would be much lesser. Although we must also consider the memory used for storing the activations. The memory used for activation is again a function of the batchsize (semaphore) and the fraction of the batch in the context churning phase and the fraction which is in generation phase. This is a bit more complex to calculate which we shall save for another day :)
 
 ## References
 

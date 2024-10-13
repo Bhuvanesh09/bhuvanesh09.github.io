@@ -40,6 +40,27 @@
   lang="en-us"
 >
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJGSXWPJT4"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TJGSXWPJT4');
+        }
+      </script>
+    
+  
+
+
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta
@@ -158,6 +179,7 @@
       metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
       htmlClass[isDark ? 'add' : 'remove']('dark');
       localStorage.setItem('dark', isDark);
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     };
 
     
@@ -283,7 +305,7 @@
   <time class="text-sm antialiased opacity-60"
     >Oct 5, 2024</time
   >
-  <a class="absolute inset-0 text-[0]" href="http://localhost:1313/posts/is_inhouse_llm_cheaper_than_api/">Are inhouse LLMs really cheaper than APIs?</a>
+  <a class="absolute inset-0 text-[0]" href="http://localhost:1313/posts/are_inhouse_llms_cheaper_than_api/">Are inhouse LLMs really cheaper than APIs?</a>
 </section>
 
 

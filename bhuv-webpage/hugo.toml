@@ -2,7 +2,7 @@ baseURL = 'https://bhuv.live'
 googleAnalytics = 'G-TJGSXWPJT4'
 languageCode = 'en-us'
 title = "bhuv's notebook"
-theme = "paper"
+theme = ["hugo-notice", "paper"]
 name = "Bhuvanesh"
 
 [params]

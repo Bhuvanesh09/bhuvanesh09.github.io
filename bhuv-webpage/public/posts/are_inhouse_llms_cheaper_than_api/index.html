@@ -40,6 +40,27 @@
   lang="en-us"
 >
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJGSXWPJT4"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TJGSXWPJT4');
+        }
+      </script>
+    
+  
+
+
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta
@@ -198,6 +219,7 @@ Understanding Token Dynamics in LLMs Tokens are the fundamental units processed 
       metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
       htmlClass[isDark ? 'add' : 'remove']('dark');
       localStorage.setItem('dark', isDark);
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     };
 
     
@@ -206,7 +228,8 @@ Understanding Token Dynamics in LLMs Tokens are the fundamental units processed 
       setDark(true);
     } else {
       const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      
+      setDark(darkVal ? darkVal === 'true' : 'false'); 
     }
 
     
@@ -338,7 +361,130 @@ Understanding Token Dynamics in LLMs Tokens are the fundamental units processed 
 <p>$$ \text{Latency} = k_1 \times \text{num\_output\_tokens} $$</p>
 <!-- Here, \( k_1 \) is a constant that represents the latency incurred per output token. -->
 <p>This linear relationship is intuitive because generating each additional token requires a consistent amount of computation, leading to a proportional increase in total latency.</p>
-<p><strong>Note</strong>: We also observe that the slope by which the latency increases with the output tokens is also increseasing with increase in number of input tokens.</p>
+<style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+     
+    [data-theme=dark] { 
+        .notice {
+            --title-color: #fff;
+            --title-background-color: #069;
+            --content-color: #ddd;
+            --content-background-color: #023;
+        }
+
+        .notice.info {
+            --title-background-color: #a50;
+            --content-background-color: #420;
+        }
+
+        .notice.tip {
+            --title-background-color: #363;
+            --content-background-color: #121;
+        }
+
+        .notice.warning {
+            --title-background-color: #800;
+            --content-background-color: #400;
+        }
+    }
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="92 59.5 300 300">
+  <path d="M292 303.25V272c0-3.516-2.734-6.25-6.25-6.25H267v-100c0-3.516-2.734-6.25-6.25-6.25h-62.5c-3.516 0-6.25 2.734-6.25 6.25V197c0 3.516 2.734 6.25 6.25 6.25H217v62.5h-18.75c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h87.5c3.516 0 6.25-2.734 6.25-6.25Zm-25-175V97c0-3.516-2.734-6.25-6.25-6.25h-37.5c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h37.5c3.516 0 6.25-2.734 6.25-6.25Zm125 81.25c0 82.813-67.188 150-150 150-82.813 0-150-67.188-150-150 0-82.813 67.188-150 150-150 82.813 0 150 67.188 150 150Z"/>
+</svg>
+
+        </span>Info</p><p>We also observe that the slope itself of the linearity between latency and output tokens  is also increasing with increase in number of input tokens. This leads us to the next dependancy.</p></div>
+
 <h4 id="2-linear-dependence-on-input-tokens">2. Linear Dependence on Input Tokens</h4>
 <p>In addition to output tokens, the latency for generating each output token is also dependent on the number of input tokens. This is due to the attention mechanism in LLMs, where each new token generation step involves attending to the entire input sequence. Consequently, the latency per output token ($ \text{Latency per token} $) scales linearly with the number of input tokens (assuming that the number of output tokens is relatively small compared to the input tokens):</p>
 <p>$$
@@ -455,7 +601,7 @@ Compare the estimated input and output token counts against API pricing models t
 <li><strong>Semaphore:</strong> 21</li>
 <li><strong>Daily Cost:</strong> $13.00 (Rent of an A10G machine reserved for 1 year)</li>
 </ul>
-<p>With our earlier curve fitting, we are able to determine that we would be able to serve the above config with the latency of $12.29$ seconds.</p>
+<p>With our earlier curve fitting, we are able to determine that we would be able to serve the above config with the latency of $12.29$ seconds. Similarly, we can find the latency for any input, output and semaphore combination. We can further calculate the cost of serving the same number of tokens with GPT 4o mini.</p>
 <h4 id="cost-for-equivalent-api">Cost for equivalent API:</h4>
 <p>$$ \text{Input Tokens Served} = 21 \times 2048 \times \left(\frac{24\cdot60\cdot60}{12.29}\right) = 302,350,789 $$
 $$ \text{Output Tokens Served} = 21 \times 130 \times \left(\frac{24\cdot60\cdot60}{12.29}\right) = 19,192,188 $$</p>
@@ -468,6 +614,10 @@ $$ \text{Total Cost} = \$45.35261835 + \$11.5153128 = \$56.86793115 $$</p>
 <p>We are able to show wih very real and plausible scenarios that we can be much cheaper inspite of OpenAI slashing down their costs frequently! This is done without any specific optimization and just out of the box predictions with vLLM 0.6.1. With additional usecase specific optimizations like kv_cache prefix reuse, we can decrease the cost incured by a lot more!
 This analysis provides a comprehensive comparison of in-house LLM deployments versus API-based solutions, grounded in empirical data and robust modeling techniques. By leveraging detailed token and latency analyses, organizations can optimize their AI deployments for both performance and cost-efficiency.
 Thanks a lot for sticking around till the end!</p>
+<p><strong>Additional considerations:</strong></p>
+<ul>
+<li>The above numbers are for serving Llama3.1 8B model with SmoothQuant while for memory considerations we used FP16 model weights just for the sake of simplicity. The actual memory usage would be much lesser. Although we must also consider the memory used for storing the activations. The memory used for activation is again a function of the batchsize (semaphore) and the fraction of the batch in the context churning phase and the fraction which is in generation phase. This is a bit more complex to calculate which we shall save for another day :)</li>
+</ul>
 <h2 id="references">References</h2>
 <ul>
 <li><strong>PagedAttention:</strong> <a href="https://arxiv.org/abs/2309.06180">arxiv link</a></li>

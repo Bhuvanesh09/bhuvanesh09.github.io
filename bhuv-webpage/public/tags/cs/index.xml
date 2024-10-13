@@ -10,9 +10,9 @@
     <atom:link href="http://localhost:1313/tags/cs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Are inhouse LLMs really cheaper than APIs?</title>
-      <link>http://localhost:1313/posts/is_inhouse_llm_cheaper_than_api/</link>
+      <link>http://localhost:1313/posts/are_inhouse_llms_cheaper_than_api/</link>
       <pubDate>Sat, 05 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/is_inhouse_llm_cheaper_than_api/</guid>
+      <guid>http://localhost:1313/posts/are_inhouse_llms_cheaper_than_api/</guid>
       <description>In the rapidly evolving landscape of Large Language Models (LLMs), organizations face a crucial decision: should they deploy their own in-house models or rely on third-party API services? This analysis delves into the cost and performance dynamics of both approaches, leveraging detailed examinations of token-based latency and throughput.&#xA;Understanding Token Dynamics in LLMs Tokens are the fundamental units processed by LLMs, encompassing words or subword units. The number of input tokens (prompt length) and output tokens (generated text) directly impact computational resources, latency, and overall costs.</description>
     </item>
     <item>

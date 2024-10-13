@@ -1,3 +1,6 @@
 [submodule "bhuv-webpage/themes/paper"]
 	path = bhuv-webpage/themes/paper
 	url = https://github.com/nanxiaobei/hugo-paper
+[submodule "bhuv-webpage/themes/hugo-notice"]
+	path = bhuv-webpage/themes/hugo-notice
+	url = https://github.com/martignoni/hugo-notice.git
