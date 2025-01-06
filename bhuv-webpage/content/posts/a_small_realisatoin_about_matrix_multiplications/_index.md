@@ -10,8 +10,7 @@ tags = [
 Recently, I realized something interesting about matrix multiplication. There's a less intuitive but more efficient way to think about it. Here's a technical breakdown of both perspectives and why the order of operations matters for cache efficiency - an insight that clicked while reading about how FlashAttention optimizes the attention mechanism by changing the order of operations.
 
 ## Matrix Mult. as Inner Product (The Human Way):
-{{< image src="/images/inner_product_matrix_mult.gif" alt="description" >}}
-<!-- <img src="/images/inner_product_matrix_mult.gif" align="center"> -->
+![Inner Product Animation](inner_product_matrix_mult.gif)
 
 When we first learn matrix multiplication, we're taught to think about it as inner products. For matrices $A_{m \times n}$ and $B_{n \times o}$, their product $C = A @ B$ results in a matrix $C_{m \times o}$ where:
 - For each element in $C$, we need to do an inner product of **each** row of A with **each** column of B.
@@ -27,7 +26,7 @@ This is the natural way most people think about matrix multiplication - take a r
 
 ## Matrix Mult. as Outer Product (The Machine Way):
 
-![Matrix Mult as inner product](/images/outer_product_matrix_mult.gif)
+![Outer Product Animation](outer_product_matrix_mult.gif)
 
 Matrix $A @ B = C$ can also be thought of as the respective outer products of the **columns** of A with the **rows** of B.
 There are $n$ columns of A and $n$ rows of B. For C, we need the outer product(Normal Matrix Multiplication) of each column ($m\times 1$) of A with ~~each~~ **respective** row ($1 \times o$)  of B (Not every row of B!) and simply add them ( Adding $n$ number of $m\times o$ shaped matrices). This means, under the hypothetical assumption that vectorwise operations are instantaneous, we only need to do $O(n)$ pairwise operations between vectors and not $O(n^2)$! 
