@@ -2,6 +2,8 @@
 title = "A small realisation about matrix multiplications"
 date = "2025-01-06"
 math = true
+weight = 5
+plotly = true
 tags = [
   "CS", "CUDA", "GPU", 
 ]
@@ -99,6 +101,9 @@ The key takeaway? How we write our loops matters. By understanding the math and 
 In this small write up, we didn't look at any parallelism and yet managed to find ways to save some time. Next, We shall look at how further tiling and parallelisation can be done to make the matrix multiplication even faster. 
 
 ---
+
+{{<plotly json="inner_outer_graph.json" height="450px" width="90vw">}}
+{{<plotly json="blockwise_graph.json" height="1000px" width="100vw">}}
 
 ### References:
 

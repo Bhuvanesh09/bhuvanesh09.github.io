@@ -2,10 +2,7 @@
   {{ template "_internal/google_analytics.html" . }}
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <!-- Title -->
   <title>{{ if not .IsHome }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
@@ -21,10 +18,7 @@
   <meta name="author" content="{{ or .Params.author $site_author }}" />
   {{ else }}
   <!---->
-  <meta
-    name="description"
-    content="{{ site.Params.description | default (print `A personal blog`) }}"
-  />
+  <meta name="description" content="{{ site.Params.description | default (print `A personal blog`) }}" />
   <meta name="author" content="{{ $site_author }}" />
   {{ end }}
 
@@ -57,13 +51,16 @@
   {{ end }}
   <!---->
 
+
+  <!-- JS for Plotly -->
+  {{ if .Params.plotly }}
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  {{ end }}
+  <!---->
+
   <!-- Highlight JS -->
   {{ if and .IsPage (not site.Params.disableHLJS) }}
-  <script
-    defer
-    src="{{ `highlight.min.js` | absURL }}"
-    onload="hljs.initHighlightingOnLoad();"
-  ></script>
+  <script defer src="{{ `highlight.min.js` | absURL }}" onload="hljs.initHighlightingOnLoad();"></script>
   {{ end }}
 
   <!-- Math -->
@@ -93,12 +90,7 @@
   {{ template "_internal/twitter_cards.html" . }}
   <!-- RSS -->
   {{ range .AlternativeOutputFormats }}
-  <link
-    rel="{{ .Rel }}"
-    type="{{ .MediaType.Type }}"
-    href="{{ .Permalink }}"
-    title="{{ site.Title }}"
-  />
+  <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}" />
   {{ end }}
   <!-- Canonical -->
   <link rel="canonical" href="{{ .Permalink }}" />
