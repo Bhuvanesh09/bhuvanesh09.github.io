@@ -122,7 +122,7 @@ class VariableTracker:
         static_text.set_color(color)
         self.objects.add(static_text)
         self.number_tracker = ValueTracker(value)
-        self.number_display = DecimalNumber(self.number_tracker.get_value())
+        self.number_display = Integer(self.number_tracker.get_value())
         self.number_display.set_color(self.color)
         self.number_display.add_updater(
             lambda d: d.set_value(self.number_tracker.get_value())
@@ -161,15 +161,19 @@ class MatrixMultiplication(Scene):
         m3.objects.move_to(coor(8.5, 2.5))
         self.add(m1.objects, m2.objects, m3.objects)
 
-        var_i = VariableTracker(variable="i=", value=0, i=1, j=7, color=THEME_COLORS[0])
+        var_i = VariableTracker(variable="i=", value=0, i=3, j=8, color=THEME_COLORS[3])
+        var_j = VariableTracker(variable="j=", value=0, i=3, j=7, color=THEME_COLORS[1])
+        var_k = VariableTracker(variable="k=", value=0, i=3, j=6, color=THEME_COLORS[2])
 
         self.add(
-            m1.make_highlight_row(highlight_color=THEME_COLORS[1]),
-            m2.make_highlight_column(highlight_color=THEME_COLORS[3]),
+            m1.make_highlight_row(highlight_color=THEME_COLORS[3]),
+            m2.make_highlight_column(highlight_color=THEME_COLORS[1]),
             m3.make_highlight_square(highlight_color=THEME_COLORS[2]),
             m1.make_highlight_square(highlight_color=THEME_COLORS[0]),
             m2.make_highlight_square(highlight_color=THEME_COLORS[4]),
             var_i.get_objects(),
+            var_j.get_objects(),
+            var_k.get_objects(),
         )
         for i in range(m1.shape[0]):
             animation_list = []
@@ -178,12 +182,14 @@ class MatrixMultiplication(Scene):
             for j in range(m2.shape[1]):
                 animation_list.append(m2.move_highlight_column(j))
                 animation_list.append(m3.move_highlight_square(i, j))
+                animation_list.append(var_j.update_value(j))
                 for k in range(m2.shape[0]):
                     animation_list.append(m1.move_highlight_square(i, k))
                     animation_list.append(m2.move_highlight_square(k, j))
                     animation_list.append(
                         m3.fill_water_in_box(i, j, float(k / (m2.shape[0])))
                     )
+                    animation_list.append(var_k.update_value(k))
                     self.play(animation_list, run_time=0.4)
 
         # self.add(m1.make_highlight_square())
@@ -193,4 +199,4 @@ class MatrixMultiplication(Scene):
         # self.play(m1.move_highlight_square(0, 3))
         # self.play(m1.move_highlight_column(3))
 
-        self.wait(2)
+        self.wait(1)
