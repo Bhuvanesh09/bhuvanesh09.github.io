@@ -60,10 +60,11 @@ jobs:
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"  \
+            --source ./bhuv-webpage
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./public"
+          path: "./bhuv-webpage/public"
 
   # Deployment job
   deploy:
