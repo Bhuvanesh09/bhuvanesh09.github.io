@@ -1,0 +1,46 @@
+.plotly {
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.center {
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'JunicodeVF';
+    src: url('../fonts/JunicodeVF-Roman.woff2') format('woff2');
+    font-weight: 700;
+    font-stretch: 80%;
+}
+
+@font-face {
+    font-family: 'FiraCode';
+    src: url('../fonts/FiraCode-Regular.woff2') format('woff2');
+    font-stretch: 100%;
+}
+
+article {
+    /* font-size: 1.125rem; */
+    font-size: 1.0rem;
+    line-height: 1.6rem;
+    /* line-height: 1.8; */
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+    font-family: 'JunicodeVF';
+}
+
+.font-bold {
+    font-family: 'JunicodeVF';
+}
+
+.font-semibold {
+    font-family: 'JunicodeVF';
+}
+
+html {
+    font-family: 'FiraCode';
+}

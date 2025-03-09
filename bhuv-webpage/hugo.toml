@@ -7,7 +7,9 @@ name = "Bhuvanesh"
 
 [params]
 
-monoDarkIcon = true # show monochrome dark mode icon
+monoDarkIcon = true                                # show monochrome dark mode icon
+color = "linen"
+google_fonts = "family=Inter:opsz,wght@14..32,500"
 
 twitter = "_bhuvanesh_"
 linkedin = "bhuvanesh-sridharan-40887b19b/"
@@ -22,7 +24,7 @@ mainSections = ["home", "posts"]
 [menu]
 main = [
     { name = "About", url = "/about" },
-    { name = "ThoughtDrops", url = "/posts" },
+    { name = "Blogs", url = "/posts" },
     { name = "Publications", url = "/publications" },
 ]
 

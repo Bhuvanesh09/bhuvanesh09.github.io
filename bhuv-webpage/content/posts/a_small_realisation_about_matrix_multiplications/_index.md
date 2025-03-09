@@ -2,8 +2,8 @@
 title = "A small realisation about matrix multiplications"
 date = "2025-01-06"
 math = true
-weight = 5
 plotly = true
+type = "posts"
 tags = [
   "CS", "CUDA", "GPU", 
 ]
@@ -12,8 +12,10 @@ tags = [
 Recently, I realized something interesting about matrix multiplication. There's a less intuitive but more efficient way to think about it. Here's a technical breakdown of both perspectives and why the order of operations matters for cache efficiency - an insight that clicked while reading about how FlashAttention optimizes the attention mechanism by changing the order of operations.
 
 ## Matrix Mult. as Inner Product (The Human Way):
-![Inner Product Animation](inner_product_matrix_mult.gif)
+<!-- ![Inner Product Animation](inner_product_matrix_mult.gif) -->
+<!-- ![](inner_product_original.gif) -->
 
+{{< image src="inner_product_original.gif" width="60%" height="70%" >}}
 When we first learn matrix multiplication, we're taught to think about it as inner products. For matrices $A_{m \times n}$ and $B_{n \times o}$, their product $C = A @ B$ results in a matrix $C_{m \times o}$ where:
 - For each element in $C$, we need to do an inner product of **each** row of A with **each** column of B.
 
@@ -28,10 +30,9 @@ This is the natural way most people think about matrix multiplication - take a r
 
 ## Matrix Mult. as Outer Product (The Machine Way):
 
-![Outer Product Animation](outer_product_matrix_mult.gif)
-
+{{< image src="outer_product_original.gif" width="60%" height="70%" >}}
 Matrix $A @ B = C$ can also be thought of as the respective outer products of the **columns** of A with the **rows** of B.
-There are $n$ columns of A and $n$ rows of B. For C, we need the outer product(Normal Matrix Multiplication) of each column ($m\times 1$) of A with ~~each~~ **respective** row ($1 \times o$)  of B (Not every row of B!) and simply add them ( Adding $n$ number of $m\times o$ shaped matrices). This means, under the hypothetical assumption that vectorwise operations are instantaneous, we only need to do $O(n)$ pairwise operations between vectors and not $O(n^2)$! 
+There are $n$ columns of A and $n$ rows of B. For C, we need the outer product (aka **cross product**) of each column ($m\times 1$) of A with ~~each~~ **respective** row ($1 \times o$)  of B (Not every row of B!) and simply add them ( Adding $n$ number of $m\times o$ shaped matrices). This means, under the hypothetical assumption that vectorwise operations are instantaneous, we only need to do $O(n)$ pairwise vector operations and not $O(n^2)$! 
 [Note: The outer product of two vectors is a matrix, and the inner product of two vectors is a scalar.]
 
 
@@ -39,12 +40,11 @@ There are $n$ columns of A and $n$ rows of B. For C, we need the outer product(N
 
 In reality of course, pairwise operations between vectors aren't instantaneous. Each of the the $n$ outer product in second case takes $O(m \times o)$ FLOPs on its own. And in the first case, each of the $m \times o$ inner product takes $O(n)$ FLOPs on its own. Hence the number of multiplications that are being done is the same i.e. $O(m \times n \times o)$. 
 
-However, the outer product approach is more cache friendly and therefore faster. Why? Because of the limitations in size of cache, whenever we multiply two vectors, assume that we can store only 2 (actually O(n)) vectors in the "immediate working memory"/"shared memory"/"L1 and L2 cache".
-It happens to be that the overhead of bringing the vectors to the working memory from GPU's VRAM is significant to the actual computation! Therefore in the second case, we are doing $O(m \times o)$ operations (outer product) everytime we load two vectors while on the first inner product case, we would only doing $O(n)$ operations(dot product) for the two vectors loaded before having to load new vectors. This makes the outer product approach more cache friendly and faster in most kernels.
+However, the outer product approach is more cache friendly and therefore faster. Why? The key is reducing how often data must be transferred between main (or GPU) memory and the processor. In the outer-product variant, each time we load two vectors (a column of A and a row of B) into fast memory, we perform O(m × o) multiplications, updating a large region of the output matrix. By contrast, the inner-product method only yields O(n) multiplications per pair of loaded vectors—so it has to reload data more frequently to process all the required row-by-column products. Since memory transfers are often the bottleneck, performing more work each time data is loaded translates into better cache utilization and higher overall performance. It happens to be that the overhead of bringing the vectors to the working memory from GPU's VRAM is significant to the actual computation! Reiterating, we get to do $O(m \times o)$ operations in outerproduct method everytime we load two vectors while on the first inner product case, we would be only doing $O(n)$ operations(dot product) for the two vectors loaded before having to load new vectors. This makes the outer product approach more cache friendly and faster.
 
 ## What did we actually change?
 
-To come to think of it, all we did was change the order of the loop of normal matrix multiplication. Instead of doing the normal $i,j,k$ loop, we did $k, i, j$ loop. Example in python:
+To come to think of it, all we did was change the order of the loop of normal matrix multiplication. Instead of doing the normal $i,j,k$ loop, we did $k, i, j$ loop. It might be useful to look at the code example below and then go back to our animation. The loop order and index changes are colour coded to illustrate how interpretation of inner/outer product boils down to a simple order change of loops. Example in python:
 
 ```python
 def matrix_multiply_inner(A, B):
@@ -91,7 +91,178 @@ def matrix_multiply_outer(A, B):
     return C
 ```
 
-Hence we are loading vectors one order of magnitude less $(m \times o \to n)$ by going with the outer product approach.
+To support the above claim and to see whether the outer product approach is indeed faster, Lets do a couple of experiment in Triton, a language which enables us get control over the multiplicaton kernels directly. To remove complexities of tiling and parallelization for now, we shall just compare the two approaches in the simplest way possible.
+
+```python
+import triton
+import torch
+import pickle
+from datetime import datetime
+import triton.language as tl
+
+DEVICE = torch.device("cuda:0")
+BLOCK_POWER = 7
+BLOCK_SIZE = 2**BLOCK_POWER
+print("The Current device is:", DEVICE)
+
+
+@triton.jit
+def inner_kernel(A, B, C, M, N, O, BLOCK_SIZE: tl.constexpr, MIN_BATCH: tl.constexpr):
+    _ = tl.program_id(0)  # Not really parallel since we will use only one kernel
+    # Doing it serially since we only need to check the cache efficiency.
+    # We are not interested in the parallelizing the kernel itself at this moment.
+
+    offsets_1d = tl.arange(0, BLOCK_SIZE)[None, :]  # Makes it a 1xBLOCK_SIZE vector
+    batch_offsets = tl.arange(0, MIN_BATCH)[
+        :, None
+    ]  # Makes it a MIN_BATCH x 1 vector since we can't have a batchsize of 1
+    offsets_2d = offsets_1d + batch_offsets  # Makes it a MIN_BATCH x BLOCK_SIZE vector
+    # Of the MIN_BATCH x BLOCK_SIZE vector, only the first row should be used and the first M/N/O cols should be used.
+    # We must create appropriately sized masks to ensure that only the first M/N/O cols are used.
+
+    # We are not doing operations in parallel at the moment.
+    for i in range(M):
+        for j in range(O):
+            # Load row i of A and column j of B into shared memory
+            # A is M x N
+            # a should be of the size 1 x N but actually would be MIN_BATCH x BLOCK_SIZE with appropriate masking
+            mask_a = (offsets_1d < N) * (
+                batch_offsets < 1
+            )  # mask_a is a MIN_BATCH x BLOCK_SIZE matrix by rules of broadcasting
+            a = tl.load(A + i * N + offsets_2d, mask=mask_a)
+            # B is N x O
+            # b should be of the size N x 1 but actually would be BLOCK_SIZE x MIN_BATCH with appropriate masking
+            mask_b = (tl.trans(offsets_1d) < N) * (
+                tl.trans(batch_offsets) < 1
+            )  # mask_b is a BLOCK_SIZE x MIN_BATCH matrix by rules of broadcasting
+            b = tl.load(B + j + (tl.trans(offsets_2d) * O), mask=mask_b)
+
+            # Both of them should be of the size N
+            dot_product = tl.dot(a, b)
+            mask_for_c = (batch_offsets * tl.trans(batch_offsets)) < 1
+
+            # C is M x O
+            tl.store(
+                C + i * O + j + (batch_offsets * tl.trans(batch_offsets)),
+                dot_product,
+                mask=mask_for_c,
+            )
+
+
+@triton.jit
+def inner_kernel_triple_loop(A, B, C, M, N, O, BLOCK_SIZE: tl.constexpr):
+    _ = tl.program_id(0)  # Not really parallel since we will use only one kernel
+
+    # We are not doing operations in parallel at the moment.
+    offsets = tl.arange(0, BLOCK_SIZE)
+
+    for i in range(M):
+        for j in range(O):
+            a = tl.load(A + i * N + offsets, mask=offsets < N)
+            b = tl.load(B + offsets * O + j, mask=offsets < N)
+            c = tl.sum(a * b)
+
+            tl.store(C + i * O + j, c)
+
+
+@triton.jit
+def outer_kernel(A, B, C, M, N, O, BLOCK_SIZE: tl.constexpr, MIN_BATCH: tl.constexpr):
+    _ = tl.program_id(0)
+    batch_offsets = tl.arange(0, MIN_BATCH)
+    offsets_a = tl.arange(0, BLOCK_SIZE)[:, None]  # col vector
+    mask_a = offsets_a < M
+    offsets_b = tl.arange(0, BLOCK_SIZE)[None, :]  # row vector
+    mask_b = offsets_b < O
+    c = tl.zeros((BLOCK_SIZE, BLOCK_SIZE), dtype=tl.float32)
+    mask_c = (offsets_a < M) * (offsets_b < O)
+    for k in range(0, N):
+        # load kth column of A:
+        a = tl.load(
+            (A + offsets_a * N + k) + batch_offsets[None, :],
+            mask=mask_a * (batch_offsets[None, :] < 1),
+        )
+        # load kth row of B:
+        b = tl.load(
+            (B + k * O + offsets_b) + batch_offsets[:, None],
+            mask=mask_b * (batch_offsets[:, None] < 1),
+        )
+        c += tl.dot(a, b)
+
+    tl.store(C + offsets_a * O + offsets_b, c, mask=mask_c)
+
+
+def inner_product_wrapper(x: torch.Tensor, y: torch.Tensor):
+    # print(".", end="")
+    output = torch.zeros((x.shape[0], y.shape[1]), device=x.device)
+    assert x.shape[1] == y.shape[0]
+    assert x.device == DEVICE and y.device == DEVICE and output.device == DEVICE
+
+    M, N, O = x.shape[0], x.shape[1], y.shape[1]
+
+    grid = lambda meta: (1,)
+
+    inner_kernel_triple_loop[grid](x, y, output, M, N, O, BLOCK_SIZE=BLOCK_SIZE)
+    return output
+
+
+def outer_product_wrapper(x: torch.Tensor, y: torch.Tensor):
+    # print("*", end="")
+    output = torch.zeros((x.shape[0], y.shape[1]), device=x.device)
+    assert x.shape[1] == y.shape[0]
+    assert x.device == DEVICE and y.device == DEVICE and output.device == DEVICE
+
+    M, N, O = x.shape[0], x.shape[1], y.shape[1]
+
+    grid = lambda meta: (1,)
+
+    outer_kernel[grid](x, y, output, M, N, O, BLOCK_SIZE=BLOCK_SIZE, MIN_BATCH=16)
+    return output
+
+
+@triton.testing.perf_report(
+    triton.testing.Benchmark(
+        x_names=["size"],  # Argument names to use as an x-axis for the plot.
+        x_vals=[
+            2**i for i in range(4, BLOCK_POWER + 1, 1)
+        ],  # Different possible values for `x_name`.
+        x_log=True,  # x axis is logarithmic.
+        line_arg="provider",  # Argument name whose value corresponds to a different line in the plot.
+        line_vals=["inner_product", "outer_product"],  # Possible values for `line_arg`.
+        line_names=["inner_product", "outer_product"],  # Label name for the lines.
+        styles=[("blue", "-"), ("green", "-")],  # Line styles.
+        ylabel="ms",  # Label name for the y-axis.
+        plot_name="Matrix Multiplication Performance",  # Name for the plot. Used also as a file name for saving the plot.
+        args={},  # Values for function arguments not in `x_names` and `y_name`.
+    )
+)
+def benchmark(size, provider):
+    x = torch.rand((size, size), device=DEVICE, dtype=torch.float32)
+    y = torch.rand((size, size), device=DEVICE, dtype=torch.float32)
+    quantiles = [0.5, 0.2, 0.8]
+    if provider == "inner_product":
+        ms, min_ms, max_ms = triton.testing.do_bench(
+            lambda: inner_product_wrapper(x, y), quantiles=quantiles, rep=2000
+        )
+    if provider == "outer_product":
+        ms, min_ms, max_ms = triton.testing.do_bench(
+            lambda: outer_product_wrapper(x, y), quantiles=quantiles, rep=2000
+        )
+    return ms, min_ms, max_ms
+
+
+if __name__ == "__main__":
+
+    output = benchmark.run(print_data=True, return_df=True)
+    results = {"block_size": BLOCK_SIZE, "output": output}
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"./Data/log_file_{timestamp}.pkl"
+
+    with open(filename, "wb") as f:
+        pickle.dump(results, f)
+    print(output)
+
+```
 
 ## Conclusion
 
@@ -103,6 +274,7 @@ In this small write up, we didn't look at any parallelism and yet managed to fin
 ---
 
 {{<plotly json="inner_outer_graph.json" height="450px" width="90vw">}}
+
 {{<plotly json="blockwise_graph.json" height="1000px" width="100vw">}}
 
 ### References:

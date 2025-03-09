@@ -33,29 +33,24 @@
 {{ end }}<!---->
 {{ end }}<!---->
 
-<html
-  class="not-ready lg:text-base"
-  style="--bg: {{ $bg_color }}"
-  lang="{{ or site.LanguageCode site.Language.Lang }}"
->
-  {{ partial "head.html" . }}
-  <body class="text-black duration-200 ease-out dark:text-white">
-    {{ partial "header.html" . }}
+<html class="not-ready lg:text-base" style="--bg: {{ $bg_color }}" lang="{{ or site.LanguageCode site.Language.Lang }}">
+{{ partial "head.html" . }}
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
-    >
-      {{ warnf "ItPage: %s %t" .Title .IsHome}}
-      <!-- {{ if $.IsHome }} -->
-      <!-- {{ warnf "Page recognized as home: %s %t" .Title .IsHome}} -->
-      <!-- {{ $about_page := .Site.GetPage "/about/index.md"}} -->
-      <!-- {{ warnf "Inside get page %s %s" $about_page.Title $about_page.Type}} -->
-      <!--   {{ block "singleabout" $about_page}}{{ end }} -->
-      <!-- {{end}} -->
-      {{ $about_page := .Site.GetPage "/about/index.md"}}
-      {{ block "main" . }}{{ end }}
-    </main>
+<body class="text-black duration-200 ease-out dark:text-white">
+  {{ partial "header.html" . }}
 
-    {{ partial "footer.html" . }}
-  </body>
+  <main
+    class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert">
+    <!-- {{ if $.IsHome }} -->
+    <!-- {{ warnf "Page recognized as home: %s %t" .Title .IsHome}} -->
+    <!-- {{ $about_page := .Site.GetPage "/about/index.md"}} -->
+    <!-- {{ warnf "Inside get page %s %s" $about_page.Title $about_page.Type}} -->
+    <!--   {{ block "singleabout" $about_page}}{{ end }} -->
+    <!-- {{end}} -->
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  {{ partial "footer.html" . }}
+</body>
+
 </html>

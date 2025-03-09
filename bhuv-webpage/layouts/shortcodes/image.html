@@ -1,13 +1,8 @@
 <!-- layouts/shortcodes/image.html -->
 {{ $src := .Get "src" }}
 {{ $alt := .Get "alt" }}
+{{ $width := .Get "width" }}
 
 <div class="center">
-  <figure>
-  <img
-    src="{{ $src }}"
-    alt="{{ $alt }}"
-    decoding="async"
-  />
-  </figure>
+  <img src="{{ $src }}" width="{{ $width }}" alt="{{ $alt }}" style="margin: auto;">
 </div>

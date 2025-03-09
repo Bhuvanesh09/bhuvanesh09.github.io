@@ -1,5 +1,5 @@
 +++
-title = "ThoughtDrops"
+title = "Blogs"
 author = "Bhuvanesh"
 tags = ["index"]
 +++
