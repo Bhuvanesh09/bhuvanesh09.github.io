@@ -2,7 +2,7 @@
 description = "Hugo, the world's fastest framework for building websites"
 date = "2019-02-28"
 title = "About in yaml"
-author = "lee.so"
+author = "Bhuvanesh Sridharan"
 +++
 
 # 👋🏽 Hi, I'm Bhuvanesh.

@@ -5,6 +5,7 @@ math = true
 tags = [
     "python", "CS", "LLM" 
 ]
+Weight = 10
 +++
 
 In the rapidly evolving landscape of Large Language Models (LLMs), organizations face a crucial decision: should they deploy their own in-house models or rely on third-party API services? This analysis delves into the cost and performance dynamics of both approaches, leveraging detailed examinations of token-based latency and throughput.
