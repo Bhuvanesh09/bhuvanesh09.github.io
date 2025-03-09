@@ -1,0 +1,15 @@
+{{ define "main" }}
+<script>
+    // Check if the URL starts with /bhuv-website
+    if (window.location.pathname.startsWith('/bhuv-website')) {
+        // Extract the rest of the path after '/bhuv-website'
+        const restOfPath = window.location.pathname.substring('/bhuv-website'.length) || '/';
+
+        // Redirect to the extracted path
+        window.location.href = restOfPath;
+    }
+</script>
+<h1 class="absolute inset-x-8 bottom-20 top-0 flex items-center justify-center text-9xl">
+    404
+</h1>
+{{ end }}
