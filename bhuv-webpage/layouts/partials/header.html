@@ -35,19 +35,21 @@
         };
 
         // init
-        const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        { {/*  const darkScheme = window.matchMedia('(prefers-color-scheme: light)');  */ } }
         if (htmlClass.contains('dark')) {
             setDark(true);
         } else {
             const darkVal = localStorage.getItem('dark');
             // setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
-            setDark(darkVal ? darkVal === 'true' : 'false'); //Sets the default theme to light regardless of prefers-color-scheme set for the user.
+            setDark(darkVal ? darkVal === 'true' : false); //Sets the default theme to light regardless of prefers-color-scheme set for the user.
         }
 
-        // listen system
+        {
+            {/*  // listen system
         darkScheme.addEventListener('change', (event) => {
             setDark(event.matches);
-        });
+        });  */}
+        }
 
         // manual switch
         const btnDark = document.querySelector('.btn-dark');
