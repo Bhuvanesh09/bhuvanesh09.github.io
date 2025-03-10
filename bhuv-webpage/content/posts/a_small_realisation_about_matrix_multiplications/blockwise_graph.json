@@ -1004,7 +1004,7 @@
                 1.0
             ],
             "title": {
-                "text": "Time (ms)"
+                "text": "Time (ms) [log scale]"
             },
             "type": "log",
             "gridcolor": "#E0E0E0"
@@ -1027,7 +1027,7 @@
                 0.66
             ],
             "title": {
-                "text": "Time (ms)"
+                "text": "Time (ms) [log scale]"
             },
             "type": "log",
             "gridcolor": "#E0E0E0"
@@ -1048,7 +1048,7 @@
                 0.32
             ],
             "title": {
-                "text": "Time (ms)"
+                "text": "Time (ms) [log scale]"
             },
             "type": "log",
             "gridcolor": "#E0E0E0"

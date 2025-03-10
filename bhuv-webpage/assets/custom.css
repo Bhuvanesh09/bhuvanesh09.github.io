@@ -1,7 +1,7 @@
-.plotly {
+/* .plotly {
     margin-left: 50%;
     transform: translateX(-50%);
-}
+} */
 
 .center {
     text-align: center;
@@ -39,6 +39,11 @@ article {
 
 .font-semibold {
     font-family: 'JunicodeVF';
+}
+
+b,
+strong {
+    font-weight: bold;
 }
 
 html {

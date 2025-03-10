@@ -1086,7 +1086,7 @@
       "x": 0.01,
       "y": 0.99
     },
-    "width": 900,
+    "width": 800,
     "height": 400,
     "plot_bgcolor": "#FAF8F1",
     "paper_bgcolor": "#FAF8F1"

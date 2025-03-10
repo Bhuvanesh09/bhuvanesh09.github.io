@@ -31,7 +31,7 @@ This is the natural way most people think about matrix multiplication - take a r
 ## Matrix Mult. as Outer Product (The Machine Way):
 
 {{< image src="outer_product_original.gif" width="60%" height="70%" >}}
-Matrix $A @ B = C$ can also be thought of as the respective outer products of the **columns** of A with the **rows** of B.
+Matrix $A @ B = C$ can also be thought of as the respective **outer** products of the **columns** of A with the **rows** of B.
 There are $n$ columns of A and $n$ rows of B. For C, we need the outer product (aka **cross product**) of each column ($m\times 1$) of A with ~~each~~ **respective** row ($1 \times o$)  of B (Not every row of B!) and simply add them ( Adding $n$ number of $m\times o$ shaped matrices). This means, under the hypothetical assumption that vectorwise operations are instantaneous, we only need to do $O(n)$ pairwise vector operations and not $O(n^2)$! 
 [Note: The outer product of two vectors is a matrix, and the inner product of two vectors is a scalar.]
 
@@ -91,7 +91,54 @@ def matrix_multiply_outer(A, B):
     return C
 ```
 
-To support the above claim and to see whether the outer product approach is indeed faster, Lets do a couple of experiment in Triton, a language which enables us get control over the multiplicaton kernels directly. To remove complexities of tiling and parallelization for now, we shall just compare the two approaches in the simplest way possible.
+To support the above claim and to see whether the outer product approach is indeed faster, Lets do a couple of experiment in Triton, a language which enables us get control over the multiplicaton kernels directly. To remove complexities of tiling and parallelization for now, we shall just compare the two approaches in the simplest way possible where we are running just 1 thread and therefore both comparisons are doing all the $M\times N$ computations. The experiments are done on an $A100$ with 40GB of VRAM. (For the full Triton experiment code, see the [Appendix](#appendix) section below.)
+
+## Experiment Results
+
+Here's a look at the execution times (in milliseconds) for different matrix sizes with BLOCKSIZE=128:
+
+| Matrix Size | Inner Product | Outer Product | Speed Improvement |
+| ----------- | ------------- | ------------- | ----------------- |
+| 16×16       | 0.088064      | 0.025600      | 3.4×              |
+| 32×32       | 0.349184      | 0.036864      | 9.5×              |
+| 64×64       | 1.356800      | 0.062464      | 21.7×             |
+| 128×128     | 6.077440      | 0.114688      | 53.0×             |
+
+The data clearly shows that while both approaches scale with increasing matrix sizes, the outer product approach maintains significantly better performance - up to 53× faster for 128×128 matrices! Even more interestingly, our data with larger block sizes (256 and 512) shows that this performance gap widens as matrices get larger, precisely because the cache efficiency benefits become more pronounced with larger datasets.
+
+This experiment elegantly demonstrates our earlier theory: when we organize computation to maximize work done per memory access (as in the outer product approach), we achieve substantially better performance despite performing the same mathematical operations.
+
+{{<plotly json="blockwise_128_graph.json" height="300px" width="50vw">}}
+
+We also see that the slope of the outer product is much less steeper than the inner product. 
+<!-- This is because the outer product is more cache friendly and hence the overhead of bringing the data to the working memory is less. -->
+
+{{< notice info >}}
+Since the plot's axis is logarithmic, you may get a better idea of the scale by hovering over the datapoints.
+{{< /notice >}}
+Peculiarly! We see that when playing around with smaller matrices, in larger block sizes; the inner product approach could be faster than the outer product (Block Size 512, Matrix Size 16x16 in the below graph). This is because the overhead of writing $N^2$ matrix to the VRAM is more than the actual computation itself and hence an unfair comparison. Nevertheless, the rate at which the time increases is still lower in the outerproduct method, further reinforcing our belief of its better scalability and efficiency. This is a good example of how the hardware and the way we write our code can affect the performance of our code.
+
+{{<plotly json="inner_outer_graph.json" height="500px" width="50vw">}}
+
+## Conclusion
+
+Thinking about matrix multiplication as inner products (row-by-column) or outer products (column-by-row) gives us two valid perspectives, but they’re not equally efficient in practice.
+
+The key takeaway? How we write our loops matters. By understanding the math and the hardware, we can squeeze out better performance in our matrix multiplication code. Often times, the "human" and intuitive way of thinking about a concept may not be ideal. This realisation also hit me while  reading FlashAttention. In Attention, we often think from the perspective of queries and getting the correct combination of value vectors for this query using the keys. Though intuitive, this is not the most efficient way and switching the loop order is one of the key optimizations that enabled FlashAttention to tile the operations nicely and make it faster than the original.
+In this small write up, we didn't look at any parallelism and yet managed to find ways to save some time. Next, We shall look at how further tiling and parallelisation can be done to make the matrix multiplication even faster. 
+
+---
+
+
+
+### References:
+
+- [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://github.com/Dao-AILab/flash-attention)
+- [Animation for inner and outer product made using manim. Code for the animation can be found on this Gist: link](https://gist.github.com/Bhuvanesh09/d3ab95084a5e8d133a91f4d64ecc263  9)
+
+## Appendix 
+
+### Triton code for comparing the matmul operations:
 
 ```python
 import triton
@@ -263,21 +310,3 @@ if __name__ == "__main__":
     print(output)
 
 ```
-
-## Conclusion
-
-Thinking about matrix multiplication as inner products (row-by-column) or outer products (column-by-row) gives us two valid perspectives, but they’re not equally efficient in practice.
-
-The key takeaway? How we write our loops matters. By understanding the math and the hardware, we can squeeze out better performance in our matrix multiplication code. Often times, the "human" and intuitive way of thinking about a concept may not be ideal. This realisation also hit me while  reading FlashAttention. In Attention, we often think from the perspective of queries and getting the correct combination of value vectors for this query using the keys. Though intuitive, this is not the most efficient way and switching the loop order is one of the key optimizations that enabled FlashAttention to tile the operations nicely and make it faster than the original.
-In this small write up, we didn't look at any parallelism and yet managed to find ways to save some time. Next, We shall look at how further tiling and parallelisation can be done to make the matrix multiplication even faster. 
-
----
-
-{{<plotly json="inner_outer_graph.json" height="450px" width="90vw">}}
-
-{{<plotly json="blockwise_graph.json" height="1000px" width="100vw">}}
-
-### References:
-
-- [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://github.com/Dao-AILab/flash-attention)
-- [Animation for inner and outer product taken from](https://towardsdatascience.com/hey-gpu-whats-up-with-my-matrix-cb7f6d7ae7d6#bypass)
