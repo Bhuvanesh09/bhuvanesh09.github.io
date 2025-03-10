@@ -134,8 +134,9 @@ In this small write up, we didn't look at any parallelism and yet managed to fin
 
 ### References:
 
-- [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://github.com/Dao-AILab/flash-attention)
 - [Animation for inner and outer product made using manim. Code for the animation can be found on this Gist](https://gist.github.com/Bhuvanesh09/d3ab95084a5e8d133a91f4d64ecc2639)
+- [Matrix Multiplication as Inner and Outer Product written in Triton](https://gist.github.com/Bhuvanesh09/3e826a488bb3d087ad408d1119c8f5f1)
+- [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://github.com/Dao-AILab/flash-attention)
 
 ## Appendix 
 
