@@ -36,6 +36,7 @@ There are $n$ columns of A and $n$ rows of B. For C, we need the outer product (
 [Note: The outer product of two vectors is a matrix, and the inner product of two vectors is a scalar.]
 
 
+The code for the above two animations in manim has been linked in the [references](#references) section below!
 ## Real life implications of the above:
 
 In reality of course, pairwise operations between vectors aren't instantaneous. Each of the the $n$ outer product in second case takes $O(m \times o)$ FLOPs on its own. And in the first case, each of the $m \times o$ inner product takes $O(n)$ FLOPs on its own. Hence the number of multiplications that are being done is the same i.e. $O(m \times n \times o)$. 
@@ -114,11 +115,11 @@ We also see that the slope of the outer product is much less steeper than the in
 <!-- This is because the outer product is more cache friendly and hence the overhead of bringing the data to the working memory is less. -->
 
 {{< notice info >}}
-Since the plot's axis is logarithmic, you may get a better idea of the scale by hovering over the datapoints.
+Since the plot's axis is logarithmic, you may get a better idea of comparison by hovering over the datapoints.
 {{< /notice >}}
-Peculiarly! We see that when playing around with smaller matrices, in larger block sizes; the inner product approach could be faster than the outer product (Block Size 512, Matrix Size 16x16 in the below graph). This is because the overhead of writing $N^2$ matrix to the VRAM is more than the actual computation itself and hence an unfair comparison. Nevertheless, the rate at which the time increases is still lower in the outerproduct method, further reinforcing our belief of its better scalability and efficiency. This is a good example of how the hardware and the way we write our code can affect the performance of our code.
+Peculiarly! We see that when playing around with smaller matrices, in larger block sizes; the inner product approach could be faster than the outer product (Block Size 512, Matrix Size 16x16 in the below graph). This is because the overhead of writing $BLOCK\\_SIZE^2$ matrix to the VRAM is more than the actual computation itself and hence an unfair comparison. Nevertheless, the rate at which the time increases is still lower in the outerproduct method, further reinforcing our belief of its better scalability and efficiency. This is a good example of how the hardware and the way we write our code can affect the performance.
 
-{{<plotly json="inner_outer_graph.json" height="500px" width="50vw">}}
+{{<plotly json="inner_outer_graph.json" height="400px" width="50vw">}}
 
 ## Conclusion
 
@@ -134,7 +135,7 @@ In this small write up, we didn't look at any parallelism and yet managed to fin
 ### References:
 
 - [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://github.com/Dao-AILab/flash-attention)
-- [Animation for inner and outer product made using manim. Code for the animation can be found on this Gist: link](https://gist.github.com/Bhuvanesh09/d3ab95084a5e8d133a91f4d64ecc263  9)
+- [Animation for inner and outer product made using manim. Code for the animation can be found on this Gist](https://gist.github.com/Bhuvanesh09/d3ab95084a5e8d133a91f4d64ecc2639)
 
 ## Appendix 
 
