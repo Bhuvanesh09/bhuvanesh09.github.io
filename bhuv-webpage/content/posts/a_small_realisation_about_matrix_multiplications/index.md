@@ -114,7 +114,7 @@ This experiment elegantly demonstrates our earlier theory: when we organize comp
 We also see that the slope of the outer product is much less steeper than the inner product. 
 <!-- This is because the outer product is more cache friendly and hence the overhead of bringing the data to the working memory is less. -->
 
-{{< notice info >}}
+{{< notice note >}}
 Since the plot's axis is logarithmic, you may get a better idea of comparison by hovering over the datapoints.
 {{< /notice >}}
 Peculiarly! We see that when playing around with smaller matrices, in larger block sizes; the inner product approach could be faster than the outer product (Block Size 512, Matrix Size 16x16 in the below graph). This is because the overhead of writing $BLOCK\\_SIZE^2$ matrix to the VRAM is more than the actual computation itself and hence an unfair comparison. Nevertheless, the rate at which the time increases is still lower in the outerproduct method, further reinforcing our belief of its better scalability and efficiency. This is a good example of how the hardware and the way we write our code can affect the performance.
@@ -127,6 +127,12 @@ Thinking about matrix multiplication as inner products (row-by-column) or outer 
 
 The key takeaway? How we write our loops matters. By understanding the math and the hardware, we can squeeze out better performance in our matrix multiplication code. Often times, the "human" and intuitive way of thinking about a concept may not be ideal. This realisation also hit me while  reading FlashAttention. In Attention, we often think from the perspective of queries and getting the correct combination of value vectors for this query using the keys. Though intuitive, this is not the most efficient way and switching the loop order is one of the key optimizations that enabled FlashAttention to tile the operations nicely and make it faster than the original.
 In this small write up, we didn't look at any parallelism and yet managed to find ways to save some time. Next, We shall look at how further tiling and parallelisation can be done to make the matrix multiplication even faster. 
+
+{{< notice info >}}
+The code and experiments presented in this article are simplified "toy" examples intended solely to highlight how loop ordering and cache efficiency affects the performance of fundamental operations, particularly matrix multiplication.
+
+For large-scale real-world scenarios, matrix multiplication kernels are heavily optimized beyond simple loop reordering. Optimized libraries (like cuBLAS, cuDNN, CUTLASS or highly tuned CMSIS kernels for CPU) utilize advanced optimization techniques such as tiling, shared memory reuse, register blocking, vectorization, instruction-level parallelism, and carefully tuned parallel kernels. As a result, they typically outperform straightforward textbook implementations (including those demonstrated above) by orders of magnitude.
+{{< /notice >}}
 
 ---
 
