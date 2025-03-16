@@ -45,8 +45,11 @@ However, the outer product approach is more cache friendly and therefore faster.
 
 ## What did we actually change?
 
-To come to think of it, all we did was change the order of the loop of normal matrix multiplication. Instead of doing the normal $i,j,k$ loop, we did $k, i, j$ loop. It might be useful to look at the code example below and then go back to our animation. The loop order and index changes are colour coded to illustrate how interpretation of inner/outer product boils down to a simple order change of loops. Example in python:
+To come to think of it, all we did was change the order of the loop of normal matrix multiplication. Instead of doing the normal $i,j,k$ loop, we did $k, i, j$ loop.  The loop order and index changes are colour coded to illustrate how interpretation of inner/outer product boils down to a simple order change of loops. Example in python:
 
+{{< notice tip >}}
+It might be worthwhile to look at the code example below and then go back to our animation for a moment to really grasp what changed visually!
+{{< /notice >}}
 ```python
 def matrix_multiply_inner(A, B):
     m, n = A.shape
