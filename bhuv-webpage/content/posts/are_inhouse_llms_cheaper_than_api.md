@@ -2,6 +2,7 @@
 title = "Are inhouse LLMs really cheaper than APIs?"
 date = "2024-10-05"
 math = true
+plotly = true
 tags = [
     "python", "CS", "LLM" 
 ]
@@ -32,7 +33,7 @@ Tokens are the fundamental units processed by LLMs, encompassing words or subwor
 
 #### 1. Linear Dependence on Output Tokens
 
-<iframe width="800" height="600" frameborder="0" scrolling="no" src="//plotly.com/~bhuvanesh09/17.embed"></iframe>
+{{< plotly json="/plots/output_dependency.json" height="600px" width="800px" >}}
 
 LLMs operate in a causal manner, where each generated token depends on the previously generated tokens. This sequential generation process implies that the latency increases linearly with the number of output tokens. Specifically, the total latency ($ \text{Latency} $) can be expressed as:
 
@@ -56,7 +57,7 @@ $$
 Here,  $k_2$ is a constant that encapsulates the latency contribution from each input token per output token generated. As the input token count increases, each output token generation step becomes more computationally intensive, thereby increasing the overall latency.
 
 
-<iframe width="800" height="600" frameborder="0" scrolling="no" src="//plotly.com/~bhuvanesh09/15.embed"></iframe>
+{{< plotly json="/plots/input_dependency.json" height="600px" width="800px" >}}
 
 #### Combining Dependencies: A Hyperbolic Relationship
 
@@ -107,7 +108,7 @@ The initial latency model was expanded to include semaphore counts, accommodatin
 
 For a bit of emperical validation that what we are doing is correct, lets try to plot the relation of latency against the number of semaphore. This is essential before we try to fit a curve like we did for the input and output tokens. 
 
-<iframe width="800" height="600" frameborder="0" scrolling="no" src="//plotly.com/~bhuvanesh09/19.embed"></iframe>
+{{< plotly json="/plots/semaphore_dependency.json" height="600px" width="800px" >}}
 
 **Enhanced Model Implementation:**
 <!---->
