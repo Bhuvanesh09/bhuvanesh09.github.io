@@ -1,11 +1,10 @@
 +++
-title = "The Planning Bottleneck (and How Fast LLMs Fix It)"
+title = "The Planning Bottleneck"
 date = "2025-12-06"
 plotly = true
 type = "posts"
-tags = [
- "UX", "AI", "Agents" 
-]
+author = "Bhuvanesh Sridharan · Animesh Sinha"
+tags = [ "UX", "AI", "Agents" ]
 +++
 
 
@@ -32,13 +31,15 @@ Suppose you're writing a spec for rate limiting. As you type "per-user limits", 
 - Spotting similar logic in `payments/stripe_handler.py:142`
 - Identifying the gap: "Should retry attempts be per-user or per-transaction?"
 
-All appears as inline ghost text. Tab to accept. Keep typing to dismiss. The AI never blocks you.
+{{< image src="illustrated_example.png" width="100%"  >}}
+
+All appears as inline ghost text, and info cards. Tab to accept. Keep typing to dismiss. The AI never blocks you.
 
 **Three types of suggestions:**
 
-*Questions* — "What happens when Redis is unavailable?"
-*Context* — "Similar pattern in auth/session.py:89, but with distributed locks"
-*Completions* — Traditional autocomplete, but context-aware across your workspace
+- *Questions* — "What happens when Redis is unavailable?"
+- *Context* — "Similar pattern in auth/session.py:89, but with distributed locks"
+- *Completions* — Traditional autocomplete, but context-aware across your workspace
 
 ## Why this works now
 
@@ -66,7 +67,7 @@ Version 3 is now possible. -->
 
 ## Proof of concept
 
-We built a prototype at the Cerebras K2 Think hackathon. Terminal UI, real-time suggestions, works with local codebases. It's rough, but it works.
+We built a prototype at the MBZUAI K2-Think hackathon. Terminal UI, real-time suggestions, works with local codebases. It's rough, but it works.
 
 [gif showing Parallax in action surfacing inline suggestions as you type]
 
