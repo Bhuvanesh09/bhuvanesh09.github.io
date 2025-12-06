@@ -1,0 +1,251 @@
+{
+  "metadata": {
+    "name": "bhuv's notebook - Design System",
+    "website": "https://bhuvanesh09.github.io",
+    "version": "1.0",
+    "last_updated": "2025-12-07"
+  },
+
+  "colors": {
+    "background": {
+      "linen": {
+        "hex": "#FAF0E6",
+        "rgb": [250, 240, 230],
+        "usage": "Main website background (light mode)"
+      },
+      "cream": {
+        "hex": "#FAF8F1",
+        "rgb": [250, 248, 241],
+        "usage": "Plot/chart background"
+      },
+      "dark": {
+        "hex": "#000000",
+        "rgba": "rgba(0, 0, 0, 0.9)",
+        "rgb": [0, 0, 0],
+        "usage": "Dark mode background (90% opacity)"
+      }
+    },
+
+    "plot_palette": {
+      "steel_blue": {
+        "hex": "#4A90C0",
+        "rgb": [74, 144, 192],
+        "order": 1,
+        "usage": "Primary data series"
+      },
+      "sandy_orange": {
+        "hex": "#FFA54F",
+        "rgb": [255, 165, 79],
+        "order": 2,
+        "usage": "Secondary data series"
+      },
+      "medium_purple": {
+        "hex": "#9370DB",
+        "rgb": [147, 112, 219],
+        "order": 3,
+        "usage": "Tertiary data series"
+      },
+      "medium_aquamarine": {
+        "hex": "#66CDAA",
+        "rgb": [102, 205, 170],
+        "order": 4,
+        "usage": "Quaternary data series"
+      },
+      "indian_red": {
+        "hex": "#CD5C5C",
+        "rgb": [205, 92, 92],
+        "order": 5,
+        "usage": "Quinary data series"
+      }
+    },
+
+    "plot_colors_array": [
+      "#4A90C0",
+      "#FFA54F",
+      "#9370DB",
+      "#66CDAA",
+      "#CD5C5C"
+    ],
+
+    "text": {
+      "light_mode": {
+        "primary": "#000000",
+        "body": "#374151",
+        "heading": "#111827",
+        "link": "#111827",
+        "lead": "#4b5563",
+        "code": "#111827"
+      },
+      "dark_mode": {
+        "primary": "#FFFFFF",
+        "body": "#d1d5db",
+        "heading": "#FFFFFF",
+        "lead": "#9ca3af"
+      }
+    },
+
+    "ui": {
+      "borders": {
+        "light": "#e5e7eb",
+        "medium": "#E0E0E0",
+        "dark_10": "rgba(0, 0, 0, 0.1)"
+      },
+      "grays": {
+        "counters": "#6b7280",
+        "bullets": "#d1d5db",
+        "captions": "#6b7280",
+        "placeholder": "#9ca3af"
+      },
+      "buttons": {
+        "light_mode": {
+          "background": "#000000",
+          "text": "#FFFFFF"
+        },
+        "dark_mode": {
+          "background": "#FFFFFF",
+          "text": "#000000"
+        }
+      }
+    },
+
+    "accent": {
+      "red": "#ff3b2d",
+      "focus_blue": "rgb(59, 130, 246)"
+    }
+  },
+
+  "typography": {
+    "fonts": {
+      "heading": "JunicodeVF",
+      "body": "FiraCode",
+      "monospace": "FiraCode"
+    },
+    "sizes": {
+      "h1": "2.25em",
+      "h2": "1.5em",
+      "h3": "1.25em",
+      "h4": "1em",
+      "body": "1.0rem",
+      "large": "1.125rem",
+      "small": "0.875rem",
+      "code": "0.875rem"
+    },
+    "line_heights": {
+      "h1": 1.111,
+      "h2": 1.333,
+      "h3": 1.6,
+      "h4": 1.5,
+      "body": 1.6,
+      "large": 1.75,
+      "small": 1.25,
+      "code": 1.5
+    },
+    "weights": {
+      "heading": 700,
+      "bold": 700,
+      "semibold": 600,
+      "medium": 500,
+      "regular": 400
+    }
+  },
+
+  "plot_config": {
+    "standard": {
+      "plot_bgcolor": "#FAF8F1",
+      "paper_bgcolor": "#FAF8F1",
+      "width": 800,
+      "height": 600
+    },
+    "grid": {
+      "color": "#E0E0E0",
+      "width": 1
+    },
+    "marker": {
+      "default_size": 8
+    },
+    "line": {
+      "default_width": 2
+    }
+  },
+
+  "layout": {
+    "max_content_width": "48rem",
+    "prose_width": "65ch",
+    "padding": {
+      "section_horizontal": "2rem",
+      "large_vertical": "4rem",
+      "medium_vertical": "2.5rem",
+      "small_vertical": "0.5rem"
+    },
+    "spacing": {
+      "xs": "0.25rem",
+      "sm": "0.5rem",
+      "md": "1rem",
+      "lg": "1.5rem",
+      "xl": "2rem",
+      "2xl": "2.5rem",
+      "3xl": "3rem",
+      "4xl": "4rem"
+    }
+  },
+
+  "examples": {
+    "plotly_trace": {
+      "mode": "lines+markers",
+      "line": {
+        "color": "#4A90C0",
+        "width": 2
+      },
+      "marker": {
+        "color": "#4A90C0",
+        "size": 8
+      }
+    },
+    "plotly_layout": {
+      "plot_bgcolor": "#FAF8F1",
+      "paper_bgcolor": "#FAF8F1",
+      "width": 800,
+      "height": 600,
+      "xaxis": {
+        "gridcolor": "#E0E0E0",
+        "gridwidth": 1
+      },
+      "yaxis": {
+        "gridcolor": "#E0E0E0",
+        "gridwidth": 1
+      }
+    }
+  },
+
+  "accessibility": {
+    "contrast_ratios": {
+      "body_on_linen": {
+        "ratio": "18.84:1",
+        "wcag_level": "AAA"
+      },
+      "dark_mode": {
+        "ratio": "21:1",
+        "wcag_level": "AAA"
+      }
+    },
+    "minimum_font_sizes": {
+      "body": "16px",
+      "small": "14px"
+    }
+  },
+
+  "brand": {
+    "characteristics": [
+      "Clean & Minimal",
+      "Technical & Academic",
+      "Approachable",
+      "Professional"
+    ],
+    "design_principles": [
+      "Clarity First",
+      "Consistency",
+      "Readability",
+      "Simplicity"
+    ]
+  }
+}

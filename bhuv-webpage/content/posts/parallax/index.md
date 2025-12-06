@@ -11,7 +11,8 @@ tags = [
 
 Cursor and Claude Code can build entire systems from specs now. But good specs take an hour to write. You're context-switching between your editor, files, Slack, past docs. That's the bottleneck.
 
-AI coding agents got good enough that execution isn't the constraint anymore. Planning is. And we're still planning through request-response loops: Stop typing. Formulate complete question. Wait for answer. Resume thinking. Repeat.
+AI coding agents got good enough that execution isn't the constraint anymore. Planning is. And we're still planning through request-response loops: 
+You stop typing -> Formulate complete question -> Wait for answer -> Resume thinking -> Repeat.
 
 Chat interfaces assume you know what to ask. But planning is figuring out what to ask. When you're planning, your thinking is incomplete by definition. You're exploring, context fragmented, trying to piece together what you don't know. Chatbots require you to package that messy, half-formed thinking into a coherent prompt before you get any help.
 
@@ -21,11 +22,11 @@ That's backwards. You need the most help when your thoughts are least formed.
 
 Not after you press enter. Not in a separate chat window. Continuously, in the background.
 
-This is Parallax. An AI that processes your context and surfaces insights as inline suggestions: questions, connections, completions. All directly in your editor as ghost text.
+This is Parallax. An AI that processes your context and surfaces insights as inline suggestions: questions, connections, completions. All directly in your editor as ghost texts, and info cards.
 
 Here's how it works:
 
-You're writing a spec for rate limiting. As you type "per-user limits", Parallax is already:
+Suppose you're writing a spec for rate limiting. As you type "per-user limits", Parallax is already:
 
 - Navigating your codebase in real-time
 - Spotting similar logic in `payments/stripe_handler.py:142`
@@ -36,9 +37,7 @@ All appears as inline ghost text. Tab to accept. Keep typing to dismiss. The AI 
 **Three types of suggestions:**
 
 *Questions* — "What happens when Redis is unavailable?"
-
 *Context* — "Similar pattern in auth/session.py:89, but with distributed locks"
-
 *Completions* — Traditional autocomplete, but context-aware across your workspace
 
 ## Why this works now
@@ -49,9 +48,9 @@ Models like Cerebras and Grok now hit 2000+ tok/s in production. That's not a 10
 
 The UX constraint was always latency. That constraint is gone.
 
-Second piece: semantic search over codebases got fast enough to run continuously. Tools like Mixedbread's mgrep use multi-vector retrieval to understand search intent rather than matching literal strings. The AI can query "find authentication retry logic" instead of guessing function names. Combined with fast inference, the background agent can navigate, reason, and surface insights before you finish your sentence.
+Second piece: semantic search over codebases got fast enough to run continuously. Tools like Mixedbread's [mgrep](https://github.com/mixedbread-ai/mgrep) use multi-vector retrieval to understand search intent rather than matching literal strings. The AI can query "find authentication retry logic" instead of guessing function names. Combined with fast inference, the background agent can navigate, reason, and surface insights before you finish your sentence.
 
-## The paradigm shift
+<!-- ## The paradigm shift
 
 The request-response loop shaped how we think about AI tools. You formulate a complete question. The AI formulates a complete answer. Back and forth.
 
@@ -63,7 +62,7 @@ Version 2: AI responds to your prompt in an async way, after working on its own.
 
 Version 3: AI thinks while you think
 
-Version 3 is now possible.
+Version 3 is now possible. -->
 
 ## Proof of concept
 
