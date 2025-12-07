@@ -45,7 +45,7 @@ All appears as inline ghost text, and info cards. Tab to accept. Keep typing to 
 
 Speed matters more than you'd think. Traditional LLMs run at ~200 tokens/sec. Continuous suggestions need 2000+ tok/s or they feel laggy.
 
-Models like Cerebras and Grok now hit 2000+ tok/s in production. That's not a 10x improvement. It's a phase transition. At 200 tok/s, background reasoning feels like lag. At 2000 tok/s, it disappears.
+Model providers like Cerebras and Grok now hit 2000+ tok/s in production with advanced reasoning models. That's not a 10x improvement. It's an unlock for new interaction paradigms. At 200 tok/s, background reasoning feels like lag. At 2000 tok/s, it disappears and reasoning becomes ambient.
 
 The UX constraint was always latency. That constraint is gone.
 
@@ -83,4 +83,4 @@ The pieces are here. Someone's going to build the polished version of this. Mayb
 
 ---
 
-Interested in the code or want to riff on the idea? Reach out. Happy to share what we learned.
+Interested in the code or want to discuss more on the idea? Reach out. Happy to share what we learned.
