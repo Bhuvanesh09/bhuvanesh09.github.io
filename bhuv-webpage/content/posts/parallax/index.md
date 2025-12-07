@@ -69,7 +69,7 @@ Version 3 is now possible. -->
 
 We built a prototype at the MBZUAI K2-Think hackathon. Terminal UI, real-time suggestions, works with local codebases. It's rough, but it works.
 
-[gif showing Parallax in action surfacing inline suggestions as you type]
+{{< image src="parallax_gif_1_small.gif" width="100%" >}}
 
 The point wasn't to ship a product. It was to prove the interaction model is viable. It is.
 
