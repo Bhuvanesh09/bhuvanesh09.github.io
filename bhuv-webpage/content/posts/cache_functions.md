@@ -1,6 +1,7 @@
 +++
 title = "How to cache your functions the right way?"
 date = "2024-08-04"
+category = "treatise"
 tags = [
     "python", "CS", 
 ]

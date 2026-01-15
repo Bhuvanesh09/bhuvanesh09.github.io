@@ -1,6 +1,7 @@
 +++
 title = "The Planning Bottleneck"
 date = "2025-12-06"
+category = "musing"
 plotly = true
 type = "posts"
 author = "Bhuvanesh Sridharan · Animesh Sinha"

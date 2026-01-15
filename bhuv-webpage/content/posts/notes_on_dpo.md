@@ -1,6 +1,7 @@
 +++
 title = "Some technical intuition on RLHF and Direct Preference Optimisation"
 date = "2024-05-04"
+category = "treatise"
 math = true
 tags = [
     "python", "CS", "RL", "ML"

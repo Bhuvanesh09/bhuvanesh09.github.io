@@ -1,6 +1,7 @@
 +++
 title = "Are inhouse LLMs really cheaper than APIs?"
 date = "2024-10-05"
+category = "treatise"
 math = true
 plotly = true
 tags = [

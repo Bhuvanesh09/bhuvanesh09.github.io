@@ -1,6 +1,7 @@
 +++
 title = "A small realisation about matrix multiplications"
 date = "2025-01-06"
+category = "treatise"
 math = true
 plotly = true
 type = "posts"

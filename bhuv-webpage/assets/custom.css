@@ -49,3 +49,38 @@ strong {
 html {
     font-family: 'FiraCode';
 }
+
+/* Reading time pills/badges */
+.reading-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    letter-spacing: 0.02em;
+}
+
+/* Musing - Sandy Orange tint (from sandy_orange #FFA54F) */
+.reading-pill-musing {
+    background-color: rgba(255, 165, 79, 0.2);
+    color: #b06b1a;
+}
+
+/* Treatise - Deep Purple (from medium_purple #9370DB) */
+.reading-pill-treatise {
+    background-color: rgba(147, 112, 219, 0.25);
+    color: #5a3d8a;
+}
+
+/* Dark mode adjustments */
+.dark .reading-pill-musing {
+    background-color: rgba(255, 165, 79, 0.25);
+    color: #ffc078;
+}
+
+.dark .reading-pill-treatise {
+    background-color: rgba(147, 112, 219, 0.3);
+    color: #c4a8f0;
+}

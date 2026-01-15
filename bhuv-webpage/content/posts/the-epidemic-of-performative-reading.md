@@ -1,8 +1,9 @@
 +++
 title = "The Epidemic of Performative Reading"
 date = "2026-01-05"
+category = "musing"
 tags = [
-    "small-bytes", "general"
+    "Musings"
 ]
 +++
 

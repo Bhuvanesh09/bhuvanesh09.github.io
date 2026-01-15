@@ -53,7 +53,18 @@
     class="mb-2 ml-px inline-block text-[0.8rem] font-medium uppercase tracking-wider text-[#ff3b2d] opacity-70">Featured</span>
   {{ end }}
   <h2 class="!my-0 pb-1 font-bold !leading-none">{{ .Title }}</h2>
-  <time class="text-sm antialiased opacity-60">{{ .Date | time.Format ":date_medium" }}</time>
+  <div class="flex items-center gap-2 text-sm antialiased">
+    <time class="opacity-60">{{ .Date | time.Format ":date_medium" }}</time>
+    {{- if eq .Params.category "treatise" -}}
+    <span class="reading-pill reading-pill-treatise">Treatise · {{ .ReadingTime }} min</span>
+    {{- else if eq .Params.category "musing" -}}
+    <span class="reading-pill reading-pill-musing">Musing · {{ .ReadingTime }} min</span>
+    {{- else if le .ReadingTime 4 -}}
+    <span class="reading-pill reading-pill-musing">Musing · {{ .ReadingTime }} min</span>
+    {{- else -}}
+    <span class="reading-pill reading-pill-treatise">Treatise · {{ .ReadingTime }} min</span>
+    {{- end -}}
+  </div>
   <a class="absolute inset-0 text-[0]" href="{{ .Permalink }}">{{ .Title }}</a>
 </section>
 {{ end }}
