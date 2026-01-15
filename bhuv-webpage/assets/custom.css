@@ -20,10 +20,22 @@
     font-stretch: 100%;
 }
 
+@font-face {
+    font-family: 'Spectral';
+    src: url('../fonts/Spectral-Regular.woff2') format('woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Spectral';
+    src: url('../fonts/Spectral-Bold.woff2') format('woff2');
+    font-weight: 700;
+}
+
 article {
     /* font-size: 1.125rem; */
-    font-size: 1.0rem;
-    line-height: 1.6rem;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
     /* line-height: 1.8; */
     --tw-text-opacity: 1;
     color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -47,8 +59,10 @@ strong {
 }
 
 html {
-    font-family: 'FiraCode';
+    font-family: 'Spectral', serif;
 }
+
+
 
 /* Reading time pills/badges */
 .reading-pill {

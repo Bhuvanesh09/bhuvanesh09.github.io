@@ -4,3 +4,7 @@ ContextAnimation/MatrixMultiplication/__pycache__/**
 bhuv-webpage/themes/hugo-notice
 bhuv-webpage/themes/paper
 bhuv-webpage/themes/paper
+bhuv-webpage/.vscode/settings.json
+**/.DS_Store
+.DS_Store
+bhuv-webpage/content/posts/.DS_Store
